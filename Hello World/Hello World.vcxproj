@@ -159,6 +159,7 @@
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="light types\PointLight.cpp" />
     <ClCompile Include="light types\SpotLight.cpp" />
+    <ClCompile Include="Shader.cpp" />
     <ClCompile Include="stb_image.cpp" />
   </ItemGroup>
   <ItemGroup>

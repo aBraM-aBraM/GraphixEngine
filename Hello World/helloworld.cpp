@@ -1,9 +1,6 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
 
 #include "Shader.h";
 #include "Camera.h";
@@ -195,7 +192,7 @@ int main()
 
     DirectionalLight dirLight = DirectionalLight("dirLight", glm::vec3(-0.2f, -0.3f, 0.1f), glm::vec3(0.2f, 0.2f, 0.2f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(1.0f, 1.0f, 1.0f));
     //myShader.setLight(dirLight);
-    SpotLight spotLight = SpotLight("spotLight", camera.Position, camera.Front, 0.0f* glm::vec3(0.2f, 0.2f, 0.2f), 0.0f * glm::vec3(0.5f, 0.5f, 0.5f), 0.0f* glm::vec3(1.0f, 1.0f, 1.0f), glm::radians(12.5f), glm::radians(17.5f));
+    SpotLight spotLight = SpotLight("spotLight", camera.Position, camera.Front, 1.0f* glm::vec3(0.2f, 0.2f, 0.2f), 1.0f * glm::vec3(0.5f, 0.5f, 0.5f), 1.0f* glm::vec3(1.0f, 1.0f, 1.0f), glm::radians(12.5f), glm::radians(17.5f));
     myShader.setLight(spotLight);
 
     for (int i = 0; i < 4; i++)
