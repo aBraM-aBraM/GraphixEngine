@@ -13,7 +13,6 @@ struct Material {
     sampler2D specular;
     float shininess;
 }; 
-
 struct SpotLight {
     vec3 position;
     vec3 direction;
