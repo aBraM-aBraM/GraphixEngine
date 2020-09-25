@@ -57,6 +57,8 @@ vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir, mat4 view);
 vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir, mat4 view);  
 vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir, mat4 view); 
 
+// OPTIMIZATIONS | SPECULAR 
+
 void main()
 {
     // properties

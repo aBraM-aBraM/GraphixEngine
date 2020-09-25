@@ -43,6 +43,8 @@ glm::vec3(1.0f,  0.0f, 1.0f),
 glm::vec3(0.0f,  0.5f, 1.0f)
 };
 
+
+
 int main()
 {
     // glfw: initialize and configure
