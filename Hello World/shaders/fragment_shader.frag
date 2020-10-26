@@ -50,17 +50,28 @@ uniform SpotLight spotLight;
 
 uniform mat4 view;
 uniform Material material;
+uniform sampler2D texture_diffuse1;
 
 // prototype functions
 vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir, mat4 view);
 vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir, mat4 view);  
 vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir, mat4 view); 
+float LinearizeDepth(float depth);
 
 // OPTIMIZATIONS | SPECULAR 
 
+ float near = 0.1; 
+ float far  = 100.0; 
+ 
+
 void main()
 {
-    // properties
+    float depth = LinearizeDepth(gl_FragCoord.z) / far; // divide by far for demonstration
+    FragColor = vec4(vec3(depth), 1.0);
+    return;
+    //FragColor = texture(texture_diffuse1, TexCoords);
+    //return;
+//    // properties
     vec3 norm = normalize(Normal);
     vec3 viewDir = normalize(-FragPos);
 
@@ -74,6 +85,7 @@ void main()
     result += CalcSpotLight(spotLight, norm, FragPos, viewDir, view);    
     
     FragColor = vec4(result, 1.0);
+ 
 }
 
 vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir, mat4 view)
@@ -146,4 +158,9 @@ vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir, mat
     
     return (ambient + diffuse + specular);
 }
-
+ 
+float LinearizeDepth(float depth) 
+{
+    float z = depth * 2.0 - 1.0; // back to NDC 
+    return (2.0 * near * far) / (far + near - z * (far - near));	
+}

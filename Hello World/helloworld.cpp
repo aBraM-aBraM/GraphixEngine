@@ -5,6 +5,7 @@
 #include "Shader.h";
 #include "Camera.h";
 #include "stb_image.h";
+#include "Model.h"
 
 // I DIDNT DECLARE THE BULLSHIT THINGY VAO TEXTURE (IM IN DIFFUSE MAPPING CHAPTER) 
 
@@ -79,19 +80,20 @@ int main()
         std::cout << "Failed to initialize GLAD" << std::endl;
         return -1;
     }
-
+    stbi_set_flip_vertically_on_load(true);
     glEnable(GL_DEPTH_TEST);
+    //glDepthFunc(GL_ALWAYS);
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
     // build and compile our shader program
     // ------------------------------------
     // vertex shader
-  
-    Shader myShader("C:\\Users\\User\\Source\\Repos\\Hello World\\Hello World\\shaders\\vertex_shader.vert",
-        "C:\\Users\\User\\Source\\Repos\\Hello World\\Hello World\\shaders\\fragment_shader.frag");
 
-    Shader lightShader("C:\\Users\\User\\Source\\Repos\\Hello World\\Hello World\\shaders\\light_vert.vert",
-        "C:\\Users\\User\\Source\\Repos\\Hello World\\Hello World\\shaders\\light_frag.frag");
+    Shader myShader("E:\\GitHub\\GraphixEngine\\Hello World\\shaders\\vertex_shader.vert",
+        "E:\\GitHub\\GraphixEngine\\Hello World\\shaders\\fragment_shader.frag");
+
+    Shader lightShader("E:\\GitHub\\GraphixEngine\\Hello World\\shaders\\light_vert.vert",
+        "E:\\GitHub\\GraphixEngine\\Hello World\\shaders\\light_frag.frag");
 
     myShader.use();
 
@@ -209,6 +211,10 @@ int main()
     // Camera initialization remember right handed system
     camera = Camera(glm::vec3(0.0f,0.0f,7.0f));
                  
+    Model myModel = Model("E:/GitHub/GraphixEngine/Assets/backpack.obj");
+
+
+
     // render loop
     // -----------
     while (!glfwWindowShouldClose(window))
@@ -270,7 +276,7 @@ int main()
             }
     
         }
-        // setup scene shit
+        /* setup scene shit
         for (unsigned int i = 0; i < 10; i++)
         {
             myShader.use();
@@ -281,7 +287,15 @@ int main()
             model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
             myShader.setMat4("model", model);
             glDrawArrays(GL_TRIANGLES, 0, 36);
-        }
+        }*/
+
+        myShader.use();
+        // render the loaded model
+        glm::mat4 model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); // translate it down so it's at the center of the scene
+        model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));	// it's a bit too big for our scene, so scale it down
+        myShader.setMat4("model", model);
+        myModel.Draw(myShader);
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
